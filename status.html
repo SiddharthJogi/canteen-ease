@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canteen-Ease: Check Status</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Check Your Order Status</h1>
+    </header>
+
+    <div class="container">
+        <form id="statusForm">
+            <label for="orderId">Order ID</label>
+            <input type="text" id="orderId" placeholder="Enter your order ID" required>
+            <button type="submit">Check Status</button>
+        </form>
+        <div id="statusMessage" class="status" style="display: none;">
+            <!-- Status message will be updated via JS -->
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 Canteen-Ease | All Rights Reserved
+    </footer>
+
+    <script>
+        document.getElementById('statusForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const orderId = document.getElementById('orderId').value;
+            // Fetch order status from backend and update message
+        });
+    </script>
+</body>
+</html>

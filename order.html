@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canteen-Ease: Place Order</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Place Your Order</h1>
+    </header>
+
+    <div class="container">
+        <div class="order-form">
+            <h2>Fill in the details below</h2>
+            <form id="orderForm">
+                <label for="studentId">Student ID</label>
+                <input type="text" id="studentId" placeholder="Enter your ID" required>
+
+                <label for="meal">Select Meal</label>
+                <select id="meal">
+                    <option value="veg">Veg Meal</option>
+                    <option value="non-veg">Non-Veg Meal</option>
+                    <option value="vegan">Vegan Meal</option>
+                    <option value="custom">Customize</option>
+                </select>
+
+                <label for="notes">Special Requests</label>
+                <input type="text" id="notes" placeholder="Any dietary preferences?">
+
+                <button type="submit">Place Order</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 Canteen-Ease | All Rights Reserved
+    </footer>
+
+    <script>
+        // JavaScript to handle form submission
+        document.getElementById('orderForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const studentId = document.getElementById('studentId').value;
+            const meal = document.getElementById('meal').value;
+            const notes = document.getElementById('notes').value;
+
+            // Make an API request to place the order (connect to backend)
+            fetch('/api/order', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ studentId, meal, notes })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(`Order placed!\nOrder ID: ${data.orderId}`);
+            })
+            .catch(err => {
+                console.error('Error placing order:', err);
+            });
+        });
+    </script>
+</body>
+</html>
