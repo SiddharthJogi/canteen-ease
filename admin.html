@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canteen-Ease: Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Admin Dashboard: Manage Orders</h1>
+    </header>
+
+    <div class="container">
+        <h2>Update Order Status</h2>
+        <form id="updateStatusForm">
+            <label for="orderId">Order ID</label>
+            <input type="text" id="orderId" placeholder="Enter order ID" required>
+
+            <label for="status">Update Status</label>
+            <select id="status">
+                <option value="Pending">Pending</option>
+                <option value="Preparing">Preparing</option>
+                <option value="Ready">Ready for Pickup</option>
+                <option value="Completed">Completed</option>
+            </select>
+
+            <button type="submit">Update Status</button>
+        </form>
+
+        <div id="statusMessage" class="status" style="display: none;">
+            <!-- Message will be dynamically updated here -->
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 Canteen-Ease | All Rights Reserved
+    </footer>
+
+    <script>
+        document.getElementById('updateStatusForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const orderId = document.getElementById('orderId').value;
+            const status = document.getElementById('status').value;
+
+            // Make an API request to update the order status
+            fetch('/api/update-status', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ orderId, status })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const statusMessage = document.getElementById('statusMessage');
+                statusMessage.style.display = 'block';
+                statusMessage.innerHTML = data.message;
+            })
+            .catch(err => {
+                console.error('Error updating status:', err);
+            });
+        });
+    </script>
+</body>
+</html>
